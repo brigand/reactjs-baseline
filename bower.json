@@ -12,6 +12,8 @@
     "tests"
   ],
   "dependencies": {
-    "react": "~0.8.x"
+    "react": "~0.8.x",
+    "foundation": "https://github.com/zurb/bower-foundation/raw/master/css/foundation.css",
+    "cortex": "https://raw.github.com/mquan/cortex/master/build/cortex.js"
   }
 }

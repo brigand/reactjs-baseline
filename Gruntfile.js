@@ -1,3 +1,11 @@
+/** This Grunt file has the MIT License (MIT) http://opensource.org/licenses/MIT
+
+    Contribuiters:
+        2013-2014 Mark Lussier <mlussier@gmail.com> 
+        2014 Régis Gaidot <rgaidot@gmail.com>
+        2014 FWeinb of https://github.com/FWeinb
+        2014 Frankie Bagnardi
+*/
 module.exports = function (grunt) {
 
     grunt.initConfig({
@@ -33,21 +41,21 @@ module.exports = function (grunt) {
             }
         },
 
-        sass: {
+        stylus: {
             dev: {
                 options: {
-                    style: 'expanded'
+                    compressed: false
                 },
                 files: {
-                    'development/css/<%= pkg.name %>.css': ['src/sass/application.scss']
+                    'development/css/<%= pkg.name %>.css': ['src/index.styl']
                 }
                 },
             dist: {
                 options: {
-                    style: 'compressed'
+                    compressed: true
                 },
                 files: {
-                    'dist/css/<%= pkg.name %>.css': ['src/sass/application.scss']
+                    'dist/css/<%= pkg.name %>.css': ['src/index.styl']
                 }
             }
         },
@@ -56,7 +64,8 @@ module.exports = function (grunt) {
         copy: {
             dev: {
                 files: [
-                    {src: ['bower_components/foundation/foundation.css'], dest: './development/js/vendor/director.min.js'},
+                    {src: ['bower_components/foundation/index.css'], dest: './development/css/vendor/foundation.css'},
+                    {src: ['bower_components/cortex/index.js'], dest: './development/js/vendor/cortex.js'},
                     {src: ['bower_components/react/react.min.js'], dest: './development/js/vendor/react.min.js'},
                 ]
             },
@@ -99,8 +108,8 @@ module.exports = function (grunt) {
         },
 
         clean: {
-            dev: ["development"],
-            dist: ["dist"]
+            dev: ['development'],
+            dist: ['dist']
         },
 
         cssmin: {
@@ -151,7 +160,7 @@ module.exports = function (grunt) {
             options: {
               livereload: true,
             },
-            files: [ "src/**/*.jsx", 'src/**/*.scss', 'src/*.html'],
+            files: [ 'src/**/*.jsx', 'src/**/*.js', 'src/**/*.scss', 'src/*.html'],
             tasks: [ 'devBuild' ]
         },
 
@@ -164,7 +173,7 @@ module.exports = function (grunt) {
     'copy:dev',
     'replace:dev',
     'browserify:dev',
-    'sass:dev',
+    'stylus:dev',
     'cssmin:dev',
   ]);
 
@@ -180,7 +189,7 @@ module.exports = function (grunt) {
     'replace:dist',
     'browserify:dist',
     'asciify',
-    'sass:dist',
+    'stylus:dist',
     'cssmin:dist',
     'uglify:dist'
   ]);
@@ -189,3 +198,17 @@ module.exports = function (grunt) {
     'dev'
     ]);
 };
+
+
+// Takes grunt-browserify aliasMappings config and converts it into an alias array
+function arrayMappingsToAliasArray(aliasMappings) {
+    var aliasArray = [];
+    aliases = util.isArray(aliasMappings) ? aliasMappings : [aliasMappings];
+    aliases.forEach(function (alias) {
+      grunt.file.expandMapping(alias.src, alias.dest, {cwd: alias.cwd}).forEach(function(file) {
+        var expose = file.dest.substr(0, file.dest.lastIndexOf('.'));
+        aliasArray.push('./' + file.src[0] + ':' + expose);
+      });
+    });
+    return aliasArray;
+}
