@@ -56,18 +56,13 @@ module.exports = function (grunt) {
         copy: {
             dev: {
                 files: [
-                    {src: ['bower_components/director/build/director.min.js'], dest: './development/js/vendor/director.min.js'},
-                    {src: ['bower_components/zepto/zepto.min.js'], dest: './development/js/vendor/zepto.min.js'},
+                    {src: ['bower_components/foundation/foundation.css'], dest: './development/js/vendor/director.min.js'},
                     {src: ['bower_components/react/react.min.js'], dest: './development/js/vendor/react.min.js'},
-                    {src: ['bower_components/normalize-css/normalize.css'], dest: './development/css/vendor/normalize.css'}
                 ]
             },
             dist: {
                 files: [
-                    {src: ['bower_components/director/build/director.min.js'], dest: './dist/js/vendor/director.min.js'},
-                    {src: ['bower_components/zepto/zepto.min.js'], dest: './dist/js/vendor/zepto.min.js'},
-                    {src: ['bower_components/react/react.min.js'], dest: './dist/js/vendor/react.min.js'},
-                    {src: ['bower_components/normalize-css/normalize.css'], dest: './dist/css/vendor/normalize.css'}
+                    {src: ['bower_components/react/react.min.js'], dest: './dist/js/vendor/react.min.js'}
                 ]
             }
         },
@@ -143,7 +138,7 @@ module.exports = function (grunt) {
         uglify: {
             options: {
                 // the banner is inserted at the top of the output
-                banner: '/*!\n <%= asciify_appname %> \n*/\n'
+                banner: '/*!\n My code! \n*/\n'
             },
             dist: {
                 files: {
@@ -169,7 +164,6 @@ module.exports = function (grunt) {
     'copy:dev',
     'replace:dev',
     'browserify:dev',
-    'asciify',
     'sass:dev',
     'cssmin:dev',
   ]);

@@ -1,23 +1,14 @@
 {
-  "name": "reactjs-baseline",
+  "name": "project-name",
   "version": "0.0.1",
-  "description": "Opinionated starting point boilerplate for buiding amazing things with ReactJS",
+  "description": "my react project",
   "main": "index.js",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "jsxhint": "jsxhint src/**/*.jsx"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/intabulas/reactjs-baseline"
-  },
-  "author": "Mark Lussier <mlussier@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/intabulas/reactjs-baseline",
-  "bugs": {
-    "url": "https://github.com/intabulas/reactjs-baseline/issues"
-  },
   "keywords": [
     "reactjs",
     "baseline"

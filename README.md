@@ -104,6 +104,13 @@ Todos
 4. Use pkg.version when naming files
 5. Shift to using reactjs out of [react-tools](https://npmjs.org/package/react-tools)
 
+
+Original Repo
+------------
+
+This is a fork of the [react-baseline](https://github.com/intabulas/reactjs-baseline) repo.  Most of
+the code was made by the two mentioned contributiers.  It's all liscensed under the MIT.
+
 Contributors
 ------------
 
