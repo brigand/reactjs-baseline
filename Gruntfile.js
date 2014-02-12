@@ -6,6 +6,9 @@
         2014 FWeinb of https://github.com/FWeinb
         2014 Frankie Bagnardi
 */
+var util = require("util");
+var path = require("path");
+
 module.exports = function (grunt) {
 
     grunt.initConfig({
@@ -25,6 +28,11 @@ module.exports = function (grunt) {
         browserify: {
             options: {
                 transform: ['reactify'],
+                alias: arrayMappingsToAliasArray({
+                    cwd: 'src',
+                    src: ["**/*.jsx", "**/*.js"],
+                    dest: ''
+                })
             },
             dev: {
                 options: {
@@ -160,7 +168,7 @@ module.exports = function (grunt) {
             options: {
               livereload: true,
             },
-            files: [ 'src/**/*.jsx', 'src/**/*.js', 'src/**/*.scss', 'src/*.html'],
+            files: [ 'src/**/*.*'],
             tasks: [ 'devBuild' ]
         },
 
@@ -197,7 +205,6 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'dev'
     ]);
-};
 
 
 // Takes grunt-browserify aliasMappings config and converts it into an alias array
@@ -206,9 +213,18 @@ function arrayMappingsToAliasArray(aliasMappings) {
     aliases = util.isArray(aliasMappings) ? aliasMappings : [aliasMappings];
     aliases.forEach(function (alias) {
       grunt.file.expandMapping(alias.src, alias.dest, {cwd: alias.cwd}).forEach(function(file) {
-        var expose = file.dest.substr(0, file.dest.lastIndexOf('.'));
-        aliasArray.push('./' + file.src[0] + ':' + expose);
+        file.src.forEach(function(src){
+            var parts = src.split("/");
+            var expose = file.dest.split("/").slice(-3, 2).join("/");
+            var map = './' + file.src + ':' + expose;
+
+            if (parts[parts.length - 1].indexOf(parts[parts.length - 2] + ".js" ) !== -1) {
+                aliasArray.push(map);
+            }
+        });
       });
     });
     return aliasArray;
 }
+};
+

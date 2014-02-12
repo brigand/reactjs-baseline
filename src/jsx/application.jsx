@@ -1,4 +1,7 @@
 /** @jsx React.DOM */
+
+var Button = require("common/button");
+
 var Application = React.createClass({
     getInitialState: function() {
         return {};
@@ -7,7 +10,7 @@ var Application = React.createClass({
     },
     render: function() {
         return (
-            <h1>Hello World</h1>
+            <Button />
         );
     }
 });
