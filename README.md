@@ -7,7 +7,7 @@ As I do more projects with [ReactJS](http://facebook.github.io/react/) I started
 
 I encourage you to fork, and make it *right* and submit a pull request!
 
-My current opinion is using tools like [Grunt](http://gruntjs.com/), [Browserify](http://browserify.org/), [Bower](http://bower.io/) and mutiple grunt plugins to get the job done. I also opted for [Zepto](http://zeptojs.com/) over jQuery and the Flatiron Project's [Director](https://github.com/flatiron/director) when I need a router. Oh and for the last little bit of tech that makes you mad, I am in the [SASS](http://sass-lang.com/) camp when it comes to stylesheets
+My current opinion is using tools like [Grunt](http://gruntjs.com/), [Browserify](http://browserify.org/), [Bower](http://bower.io/), [Stylus](learnboost.github.io/stylus/), and mutiple grunt plugins to get the job done.  
 
 How to Use
 ----------
@@ -16,8 +16,6 @@ Given the tool chain I have outlined above, you need the following things instal
 
 1. [NodeJS](http://nodejs.org/) 
 2. [NPM](http://npmjs.org)  (*some node distro's include this*)
-3. [Ruby](https://www.ruby-lang.org/) (*stock OSX ruby is totally fine*)	
-
 
 This is how I go about using my baseline
 
@@ -25,10 +23,8 @@ This is how I go about using my baseline
 First, lets clone the repo 
 
 ```
-mkdir new_project_name
+git clone https://github.com/brigand/reactjs-baseline.git new_project_name
 cd new_project_name
-git clone git@github.com:intabulas/reactjs-baseline.git .
-
 ```
 
 **note** at this point, do your normal steps for a new git repo and adding the remote
@@ -36,13 +32,12 @@ git clone git@github.com:intabulas/reactjs-baseline.git .
 Make sure grunt-cli is installed globally
 
 ```
-npm install -g grunt-cli
+sudo npm install -g grunt-cli
 ```
 
-Now lets install dependencies (*prefix with sudo as needed*)
+Now lets install dependencies
 
 ```
-gem install sass
 npm install
 bower install
 ``` 
@@ -54,7 +49,7 @@ Development
 -----------
 
 ```
-grunt dev
+grunt
 ```
 
 Will build the development (self contained) instance into ./development. CSS and JS are not uglified or minified to help with debugging.
@@ -68,23 +63,26 @@ grunt dist
 
 Will build the production (self contained) instance into ./dist. CSS and JS are uglified and minified as appropriate
 
+## File Structure
 
-Running
--------
+## Aliases for easy development
 
-**Update** Thanks to [FWeinb](https://github.com/FWeinb) doing a simple ```grunt``` will perform a development build, launch a little connect based server and wire up live reload. I recomend this approach now!
+`require("common/button")`  is aliased to `require("./src/common/button/button.jsx")`, and this works with api too.  No more `require("../../common/button/button/button.jsx")` nonsense!
+
+- src/
+    - [common/](https://github.com/brigand/reactjs-baseline/tree/master/src/common)
+        - put reusable components here
+    - [jsx/](https://github.com/brigand/reactjs-baseline/tree/master/src/jsx)
+        - put application specific components here
+    - [api/](https://github.com/brigand/reactjs-baseline/tree/master/src/api)
+        - put utility functions, server apis, and data persistance code here
+    - index.html
+        - the main HTML file
+    - index.jsx
+        - this is the root of your application, it's a good place to set
+        up routes, Corpus, etc.
 
 
-Personaly I use [Nodejitsu's](https://www.nodejitsu.com/) [http-server](https://github.com/nodeapps/http-server) to run the instances. Effectivly a node version of python's SimpleHTTPServer.
-
-example:
-
-```
-cd development
-http-server
-```
-
-Now visit [http://localhost:8080](http://localhost:8080) or whatever port http-server says its running on
 
 Other Things
 ------------
@@ -99,22 +97,11 @@ Todos
 -----
 
 1. Concat vendor js into a single file
-2. ~~Integrate [JSXHint](https://github.com/CondeNast/JSXHint)~~
-3. Add some tests
-4. Use pkg.version when naming files
-5. Shift to using reactjs out of [react-tools](https://npmjs.org/package/react-tools)
-
+1. Add some tests
+1. Use pkg.version when naming files
 
 Original Repo
 ------------
 
 This is a fork of the [react-baseline](https://github.com/intabulas/reactjs-baseline) repo.  Most of
 the code was made by the two mentioned contributiers.  It's all liscensed under the MIT.
-
-Contributors
-------------
-
-Since no man is an island, the evolution of this baseline occurs not only as I change my opinions and extract more baseline, but with the wonderful help of the ReactJS community. So far these include
-
-* [Regis Daidot](https://github.com/rgaidot)
-* [FWeinb](https://github.com/FWeinb)
